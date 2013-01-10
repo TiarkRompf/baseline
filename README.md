@@ -15,4 +15,4 @@ Incremental View Maintenance for Financial Queries
 
 Layered tree indexes enable O(log n) incremental updates for queries with nested
 aggregates and inequality joins. This leads to large speedups for some queries from
-the [DBToaster](dbtoaster.org) benchmark suite.
+the [DBToaster](http://www.dbtoaster.org) benchmark suite.
