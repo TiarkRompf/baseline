@@ -16,6 +16,7 @@ abstract class Stream[A,B] { self =>
   def collect = into(StreamFunc.collect)
   def sum(implicit ev: Numeric[B]) = into(StreamFunc.sum)
   def groupBy[K,C](sel: B => K)(inner: Stream[B,B] => StreamFunc[B,C]) = into(StreamFunc.groupBy(sel, inner(Stream[B])))
+  def groupBy1[K,C](sel: B => K,inner: Stream[B,B] => StreamFunc[B,C]) = into(StreamFunc.groupBy(sel, inner(Stream[B])))
 
   // transformer api
   def tally(implicit ev: Numeric[B]) = new Stream[A,B] {
