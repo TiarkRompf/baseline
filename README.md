@@ -62,9 +62,9 @@ Layered tree indexes enable O(log n) incremental updates for queries with nested
 aggregates and inequality joins. This leads to large speedups for some queries from
 the [DBToaster](http://www.dbtoaster.org) benchmark suite.
 
-Even complex queries like this can be computed fully incrementally:
+Even queries with complex correlated nested aggregates like this:
 
-      val resm = new MutableTreeImpl
+      val results = new MutableTreeImpl
 
       bids.foreach { b =>
         asks.foreach { a =>
@@ -73,10 +73,11 @@ Even complex queries like this can be computed fully incrementally:
           val c2 = 0.25 * bids.map(_.volume).sum > bids.filter(_.price > b.price).map(_.volume).sum
 
           if (c1 && c2)
-            resm.add(b.broker_id, a.price * a.volume * b.X - b.price * b.volume * a.X)  // need to include both a.X and b.X
+            results.add(b.broker_id, a.price * a.volume * b.X - b.price * b.volume * a.X)
         }
       }
 
+can be rewritten to be computed fully incrementally.
 
 
 
