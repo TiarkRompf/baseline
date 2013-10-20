@@ -9,13 +9,14 @@ Stream API for Collections
 
 High-level collection operations without intermediate data structures:
 
-    def evenOdd(x: Int) = if (x % 2 == 0) "even" else "odd"
+    def sgn(x: Int) = if (x < 0) "neg" else "pos"
+    def abs(x: Int) = if (x < 0) -x else x
 
-    val reducer = Stream[Int] filter (_ > 0) groupBy (evenOdd, _.sum)
+    val reducer = Stream[Int] filter (_ % 2 == 0) groupBy (sgn, _.map(abs).sum)
 
     val result = List(-1,-2,-3,1,2,3,4,5,6) into reducer
 
-    assert(result === Map("odd" -> 9, "even" -> 12))
+    assert(result === Map("neg" -> 2, "pos" -> 12))
 
 Just one Map[String,Int] is created to hold the final results.
 
