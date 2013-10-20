@@ -78,7 +78,7 @@ Even queries with complex correlated nested aggregates like this:
         }
       }
 
-can be rewritten to be computed fully incrementally.
+can be rewritten to be computed fully incrementally ([code](src/test/scala/TestMst.scala#L331)).
 
 
 
